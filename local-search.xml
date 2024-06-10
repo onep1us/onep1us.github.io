@@ -5,23 +5,10 @@
   
   <entry>
     <title>Hexo搭建个人博客流程</title>
-    <link href="/2024/06/10/Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%B5%81%E7%A8%8B-1/"/>
-    <url>/2024/06/10/Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%B5%81%E7%A8%8B-1/</url>
-    
-    <content type="html"><![CDATA[<p>本文介绍如何使用GitHub Pages + Hexo 搭建个人博客网站。</p><h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><h2 id="git安装"><a href="#git安装" class="headerlink" title="git安装"></a>git安装</h2><p>Git 是一个分布式版本控制软件，目前已经成为最流行的版本管理工具。我们将会经常利用到它的分支合并与分支追踪的功能。</p><h3 id="windows环境安装"><a href="#windows环境安装" class="headerlink" title="windows环境安装"></a>windows环境安装</h3><p>打开<a href="https://git-scm.com/downloads">官网</a>，点击红色方框中的按钮，下载git安装包。安装包下载完毕后，打开安装包，一路确定即可。</p><p><img src="/Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%B5%81%E7%A8%8B-1%5Cgit%E5%AE%89%E8%A3%85.png" alt="git安装"></p><h3 id="Linux环境安装"><a href="#Linux环境安装" class="headerlink" title="Linux环境安装"></a>Linux环境安装</h3><p>在搭建好的环境下使用如下指令安装 Git：</p><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">sudo apt <span class="hljs-keyword">install</span> git<br></code></pre></td></tr></table></figure>]]></content>
-    
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>Hexo搭建个人博客流程</title>
     <link href="/2024/06/10/Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%B5%81%E7%A8%8B/"/>
     <url>/2024/06/10/Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%B5%81%E7%A8%8B/</url>
     
-    <content type="html"><![CDATA[<p>本文介绍如何使用GitHub Pages + Hexo 搭建个人博客网站。</p><h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><h2 id="git安装"><a href="#git安装" class="headerlink" title="git安装"></a>git安装</h2><p>Git 是一个分布式版本控制软件，目前已经成为最流行的版本管理工具。我们将会经常利用到它的分支合并与分支追踪的功能。</p><h3 id="windows环境安装"><a href="#windows环境安装" class="headerlink" title="windows环境安装"></a>windows环境安装</h3><p>打开<a href="https://git-scm.com/downloads">官网</a>，点击红色方框中的按钮，下载git安装包。安装包下载完毕后，打开安装包，一路确定即可。</p><p><img src="/.com//%5CHexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%B5%81%E7%A8%8B%5Cgit%E5%AE%89%E8%A3%85.png" alt="git安装"></p><h3 id="Linux环境安装"><a href="#Linux环境安装" class="headerlink" title="Linux环境安装"></a>Linux环境安装</h3><p>在搭建好的环境下使用如下指令安装 Git：</p><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">sudo apt <span class="hljs-keyword">install</span> git<br></code></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<p>本文介绍如何使用GitHub Pages + Hexo 搭建个人博客网站。</p><h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><h2 id="git安装"><a href="#git安装" class="headerlink" title="git安装"></a>git安装</h2><p>Git 是一个分布式版本控制软件，目前已经成为最流行的版本管理工具。我们将会经常利用到它的分支合并与分支追踪的功能。</p><h3 id="windows环境安装"><a href="#windows环境安装" class="headerlink" title="windows环境安装"></a>windows环境安装</h3><p>打开<a href="https://git-scm.com/downloads">官网</a>，点击红色方框中的按钮，下载git安装包。安装包下载完毕后，打开安装包，一路确定即可。</p><p><img src="/Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%B5%81%E7%A8%8B-1%5Cgit%E5%AE%89%E8%A3%85.png" alt="git安装"></p><h3 id="Linux环境安装"><a href="#Linux环境安装" class="headerlink" title="Linux环境安装"></a>Linux环境安装</h3><p>在搭建好的环境下使用如下指令安装 Git：</p><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">sudo apt <span class="hljs-keyword">install</span> git<br></code></pre></td></tr></table></figure>]]></content>
     
     
     
