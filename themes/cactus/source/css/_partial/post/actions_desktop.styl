@@ -230,9 +230,9 @@
 
 #to-top
   position: fixed
-  right: 1.5rem
-  top: 50%
-  transform: translateY(-50%)
+  bottom: 2.5rem
+  left: 55%
+  transform: translateX(-50%)
   z-index: 200
   display: none
   width: 2.75rem
@@ -249,3 +249,7 @@
   &:hover
     color: $color-accent-1
     opacity: 1
+
+@media screen and (max-width: 500px)
+  #to-top
+    display: none !important
