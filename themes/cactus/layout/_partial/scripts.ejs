@@ -140,3 +140,19 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
+<!-- wechat share: show a QR code of the article url -->
+<script type="text/javascript">
+$(function() {
+  var pageUrl = <%- JSON.stringify(page.permalink) %>;
+  $(".share-wechat-btn").on("click", function() {
+    var $qr = $(this).closest("ul").siblings(".wechat-qr");
+    if ($qr.is(":visible")) {
+      $qr.hide();
+    } else {
+      $qr.find("img").attr("src", "https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=" + encodeURIComponent(pageUrl));
+      $qr.show();
+    }
+    return false;
+  });
+});
+</script>
