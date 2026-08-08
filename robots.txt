@@ -1,0 +1,11 @@
+User-agent: *
+
+# Disallow pure archive attachments
+Disallow: /assets/OpenFont/
+Disallow: /*.zip$
+Disallow: /*.rar$
+Disallow: /*.7z$
+Disallow: /*.tar.gz$
+Disallow: /*.tgz$
+
+Sitemap: https://onep1us.github.io/sitemap.xml
