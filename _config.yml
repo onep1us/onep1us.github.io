@@ -1,149 +1,130 @@
-# site info
+# Hexo Configuration
+## Docs: https://hexo.io/docs/configuration.html
+## Source: https://github.com/hexojs/hexo/
 
-#  language codes https://www.w3schools.com/tags/ref_language_codes.asp
-# territory codes https://www.w3schools.com/tags/ref_country_codes.asp
+# Site
+title: onep1us 的博客
+subtitle: 一个简单而干净的个人博客
+description: 记录技术与生活。
+keywords: blog, onep1us
+author: onep1us
+language: zh-CN
+timezone: ''
 
-lang: zh-Hans # default language tag of the site.
-locale: zh_CN # og:locale of the format language_TERRITORY.
-author: "onep1us" # name of site's author
-title: onep1us 的博客 # name of the site
-description: > # description of the site (multiple lines allowed)
-  一个简单而干净的个人博客，记录技术与生活。
-url: https://onep1us.github.io # the base hostname & protocol for your site
-baseurl: "/" # subpath of the site, e.g. "/blog" (leave it blank "" if you're site shouldn't use a subpath)
-# webmaster_verifications: # verify ownership with several search services
-#   google: 1234
-#   bing: 1234
-#   alexa: 1234
-#   yandex: 1234
-#   baidu: 1234
-#   facebook: 1234
+# URL
+## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
+url: https://onep1us.github.io
+permalink: :year/:month/:day/:title/
+permalink_defaults:
+pretty_urls:
+  trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
+  trailing_html: true # Set to false to remove trailing '.html' from permalinks
 
-# favicon & app icon
+# Directory
+source_dir: source
+public_dir: public
+tag_dir: tags
+archive_dir: archives
+category_dir: categories
+code_dir: downloads/code
+i18n_dir: :lang
+skip_render:
 
-# generate modern svg favicon at https://realfavicongenerator.net/svg-favicon/
-# generate png icons pack at https://realfavicongenerator.net/
-# generate maskable chrome icons at https://maskable.app/editor/
+# Writing
+new_post_name: :title.md # File name of new posts
+default_layout: post
+titlecase: false # Transform title into titlecase
+external_link:
+  enable: true # Open external links in new tab
+  field: site # Apply to the whole site
+  exclude: ''
+filename_case: 0
+render_drafts: false
+post_asset_folder: false
+relative_link: false
+future: true
+syntax_highlighter: highlight.js
+highlight:
+  line_number: true
+  auto_detect: false
+  tab_replace: ''
+  wrap: true
+  hljs: false
+prismjs:
+  preprocess: true
+  line_number: true
+  tab_replace: ''
 
-# favicon:
-#  ico: "/favicon.ico" # legacy 'favicon.ico' at the root folder of your site, it is highly recommended not changing this name
-#  svg: "/favicon.svg" # name+extension of modern vector favicon
-#  ios: "/maskable-180x180.png" # icon for Safari
-# webmanifest: "/site.webmanifest" # icon config file path for PWA
+# Home page setting
+# path: Root path for your blogs index page. (default = '')
+# per_page: Posts displayed per page. (0 = disable pagination)
+# order_by: Posts order. (Order by date descending by default)
+index_generator:
+  path: ''
+  per_page: 10
+  order_by: -date
 
-# pwa
+# Category & Tag
+default_category: uncategorized
+category_map:
+tag_map:
 
-# pwa:
-#   enabled: false # set false to temporarily disable this plugin
-#   sw_src_filepath: service-worker.js # Optional
-#   sw_dest_filename: service-worker.js # Optional
-#   dest_js_directory: assets/js # Required
-#   precache_recent_posts_num: 0 # Optional
-#   precache_glob_directory: / # Optional
-#   precache_glob_patterns: # Optional
-#     - "assets/background/*.{png,svg,gif}"
-#     - "assets/css/*.{css}"
-#     - "assets/js/*.{js}"
-#     - "assets/OpenFont/**/*.{eot,otf,ttf,woff,woff2}"
-#   precache_glob_ignores: # Optional
-#     - index.html
+# Metadata elements
+## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta
+meta_generator: true
 
-# theme config
+# Date / Time format
+## Hexo uses Moment.js to parse and display date
+## You can customize the date format as defined in
+## http://momentjs.com/docs/#/displaying/format/
+date_format: YYYY-MM-DD
+time_format: HH:mm:ss
+## updated_option supports 'mtime', 'date', 'empty'
+updated_option: 'mtime'
 
-# theme: less-style-please # if you use it as a local theme
-remote_theme: feeshy/less-style-please@lite # if you use it as a remote theme on github
-# show_logo: true # show the svg favicon in home page and archive page
-show_description: true # show blog description in home page
-bilingual: false # auto hide lang="zh" elements for non-chinese visitors
-# background_image: # path to background images for light and dark mode
-#   light: ""
-#   dark: ""
-search_engine: baidu # available values: google, bing, duckduckgo, baidu
-nav:
-  back_home: "home" # customize text for homepage link
-  tags: "tags" # customize text for tags page link
-  go_to_top: "🔝" # customize text for go to top button
-  toc: "📖" # customize text for go to top button
-  search: "search" # customize text for search page link
-copyright: "by" # available values: "all-rights-reserved", "by-nc-nd", "by-nd", "by-nc-sa", "by-nc", "by-sa", "by", "public-domain". choose here https://chooser-beta.creativecommons.org/
-# goat_counter: "yoursitename" # put your GoatCounter name if you want to use GoatCounter analytics
+# Pagination
+## Set per_page to 0 to disable pagination
+per_page: 10
+pagination_dir: page
 
-# defaults
-
-permalink: /:categories/:title
-jekyll-archives:
-  enabled: [year, tags]
-  layout: archive
-  permalinks: # if you changed these, don't forget to change the codes in '_includes/post_meta.html' as well
-    year: '/:year/'
-    month: '/:year/:month/'
-    day: '/:year/:month/:day/'
-    tag: '/tag/:name/'
-    category: '/:name/'
-defaults:
-  -
-    scope:
-      path: ""
-      type: posts
-    values:
-      layout: post
-  -
-    scope:
-      path: ""
-      type: pages
-    values:
-      layout: page
-  -
-    scope:
-      path: "*/index.md"
-      type: pages
-    values:
-      layout: archive
-  -
-    scope:
-      path: "assets"
-    values:
-      sitemap: false
-  -
-    scope:
-      path: life
-      type: posts
-    values:
-      fonts: serif # this activates an alternative set of serif typefaces
-    # dropcap: true # this activates a drop cap effect
-
-# build settings
-
-markdown: redcarpet
-redcarpet:
-  extensions: ["tables", "autolink", "strikethrough", "highlight", "footnotes"]
-toc:
-  min_level: 2 # value: 1-6
-  max_level: 3 # value: 1-6
-sass:
-  sass_dir: _sass
-  style: compressed
-feed:
-  posts_limit: 10 # max number of posts on feed
-
-# excluded files from building
-
+# Include / Exclude file(s)
+## include:/exclude: options only apply to the 'source/' folder
+include:
 exclude:
-  - vendor
-  - Gemfile
-  - Gemfile.lock
-  - .github
-  - LICENSE.txt
-  - README.md
+ignore:
 
-# plugins
+# Feed (RSS)
+## Docs: https://github.com/hexojs/hexo-generator-feed
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
 
-plugins:
-  - jekyll-remote-theme # enable this if you use it as a remote theme
-  - jekyll-seo-tag
-  - jekyll-target-blank
-  - jekyll-archives
-  - jekyll-feed
-  - jekyll-toc
-  - jekyll-pwa-workbox
-  - jekyll-redirect-from
+# Extensions
+## Plugins: https://hexo.io/plugins/
+## Themes: https://hexo.io/themes/
+theme: cactus
+
+# cactus theme config (overrides themes/cactus/_config.yml)
+theme_config:
+  colorscheme: dark
+  nav:
+    home: /
+    about: /about/
+    articles: /archives/
+  social_links:
+    -
+      icon: github
+      link: https://github.com/onep1us
+  posts_overview:
+    show_all_posts: true
+  post:
+    show_updated: true
+  copyright:
+    start_year: 2026
+  rss: true
+
+# Deployment
+## Docs: https://hexo.io/docs/one-command-deployment
+deploy:
+  type: ''
