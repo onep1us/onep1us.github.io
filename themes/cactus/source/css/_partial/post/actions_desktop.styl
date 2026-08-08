@@ -118,16 +118,6 @@
       display: block
       margin: 0
 
-    .wechat-qr
-      clear: both
-      margin-top: 0.5rem
-      padding-left: 1rem
-      text-align: left
-
-      img
-        max-width: 220px
-        border-radius: 4px
-
   #toc
     float: left
     clear: both
@@ -210,8 +200,20 @@
         margin-left: 2rem
         font-style: italic
 
-@media print 
+@media print
   #header-post
     display: none
   #footer-post-container
     display: none
+
+#copy-tip
+  position: fixed
+  top: 2rem
+  left: 50%
+  transform: translateX(-50%)
+  z-index: 200
+  padding: 0.6em 1.2em
+  border-radius: 4px
+  background: rgba(0, 0, 0, 0.85)
+  color: #fff
+  font-size: 0.85rem

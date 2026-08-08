@@ -140,17 +140,37 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
-<!-- wechat share: show a QR code of the article url -->
+<!-- wechat share: copy the article link (paste it into WeChat) -->
 <script type="text/javascript">
 $(function() {
   var pageUrl = <%- JSON.stringify(page.permalink) %>;
+  var $tip = $("<div id='copy-tip' style='display:none'></div>").appendTo("body");
+
+  function copyTip(text) {
+    $tip.text(text).fadeIn(200);
+    setTimeout(function() { $tip.fadeOut(400); }, 2200);
+  }
+
+  function fallbackCopy(text) {
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand("copy"); copyTip("链接已复制，去微信粘贴分享吧"); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+
   $(".share-wechat-btn").on("click", function() {
-    var $qr = $(this).closest("ul").siblings(".wechat-qr");
-    if ($qr.is(":visible")) {
-      $qr.hide();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(pageUrl).then(function() {
+        copyTip("链接已复制，去微信粘贴分享吧");
+      }).catch(function() {
+        fallbackCopy(pageUrl);
+      });
     } else {
-      $qr.find("img").attr("src", "https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=" + encodeURIComponent(pageUrl));
-      $qr.show();
+      fallbackCopy(pageUrl);
     }
     return false;
   });
