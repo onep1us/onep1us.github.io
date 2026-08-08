@@ -132,3 +132,11 @@
       }());
   </script>
 <% } %>
+<!-- service worker: bypass the 10-min page cache -->
+<script type="text/javascript">
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('<%- config.root %>sw.js', { updateViaCache: 'none' });
+  });
+}
+</script>
