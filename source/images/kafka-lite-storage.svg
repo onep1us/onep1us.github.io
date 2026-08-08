@@ -31,31 +31,31 @@
   <!-- 字节条 -->
   <g>
     <rect x="470" y="80" width="88" height="46" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <rect x="558" y="80" width="44" height="46" fill="#f1f5f9" stroke="#2563eb" stroke-width="1.2"/>
-    <rect x="602" y="80" width="70" height="46" fill="#fefce8" stroke="#ca8a04" stroke-width="1.2" stroke-dasharray="5 3"/>
-    <rect x="672" y="80" width="44" height="46" fill="#f1f5f9" stroke="#2563eb" stroke-width="1.2"/>
-    <rect x="716" y="80" width="130" height="46" fill="#fefce8" stroke="#ca8a04" stroke-width="1.2" stroke-dasharray="5 3"/>
+    <rect x="558" y="80" width="56" height="46" fill="#f1f5f9" stroke="#2563eb" stroke-width="1.2"/>
+    <rect x="614" y="80" width="84" height="46" fill="#fefce8" stroke="#ca8a04" stroke-width="1.2" stroke-dasharray="5 3"/>
+    <rect x="698" y="80" width="60" height="46" fill="#f1f5f9" stroke="#2563eb" stroke-width="1.2"/>
+    <rect x="758" y="80" width="130" height="46" fill="#fefce8" stroke="#ca8a04" stroke-width="1.2" stroke-dasharray="5 3"/>
   </g>
   <g font-size="13" fill="#0f172a" text-anchor="middle" font-weight="600">
     <text x="514" y="100">offset</text>
     <text x="514" y="117" font-size="11.5" fill="#475569">8B</text>
-    <text x="580" y="100">keyLen</text>
-    <text x="580" y="117" font-size="11.5" fill="#475569">4B</text>
-    <text x="637" y="100">key</text>
-    <text x="637" y="117" font-size="11.5" fill="#475569">keyLen 字节?</text>
-    <text x="694" y="100">valueLen</text>
-    <text x="694" y="117" font-size="11.5" fill="#475569">4B</text>
-    <text x="781" y="100">value</text>
-    <text x="781" y="117" font-size="11.5" fill="#475569">valueLen 字节?</text>
+    <text x="586" y="100">keyLen</text>
+    <text x="586" y="117" font-size="11.5" fill="#475569">4B</text>
+    <text x="656" y="100">key</text>
+    <text x="656" y="117" font-size="11.5" fill="#475569">keyLen 字节?</text>
+    <text x="728" y="100">valueLen</text>
+    <text x="728" y="117" font-size="11.5" fill="#475569">4B</text>
+    <text x="823" y="100">value</text>
+    <text x="823" y="117" font-size="11.5" fill="#475569">valueLen 字节?</text>
   </g>
 
   <!-- 注释 -->
   <g font-size="12.5" fill="#334155">
     <line x1="514" y1="126" x2="514" y2="146" stroke="#94a3b8" stroke-width="1.2"/>
     <text x="470" y="164">offset：分区内单调递增序号，从 0 起；返回给客户端做 ack。</text>
-    <line x1="620" y1="126" x2="620" y2="190" stroke="#94a3b8" stroke-width="1.2"/>
+    <line x1="635" y1="126" x2="635" y2="190" stroke="#94a3b8" stroke-width="1.2"/>
     <text x="470" y="208">keyLen == -1 表示无 key。</text>
-    <line x1="694" y1="126" x2="694" y2="234" stroke="#94a3b8" stroke-width="1.2"/>
+    <line x1="728" y1="126" x2="728" y2="234" stroke="#94a3b8" stroke-width="1.2"/>
     <text x="470" y="252">key 字节在 keyLen 与 valueLen 之间，读到 valueLen 前必须先跳过 key。</text>
   </g>
 
