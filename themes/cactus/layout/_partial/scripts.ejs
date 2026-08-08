@@ -140,6 +140,25 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
+<!-- back to top floating button -->
+<script type="text/javascript">
+$(function() {
+  var $toTop = $("#to-top");
+  if ($toTop.length) {
+    $(window).on("scroll", function() {
+      if ($(this).scrollTop() > 300) {
+        $toTop.fadeIn(150);
+      } else {
+        $toTop.fadeOut(150);
+      }
+    });
+    $toTop.on("click", function() {
+      $("html, body").animate({ scrollTop: 0 }, "fast");
+      return false;
+    });
+  }
+});
+</script>
 <!-- wechat share: copy the article link (paste it into WeChat) -->
 <script type="text/javascript">
 $(function() {
