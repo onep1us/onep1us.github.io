@@ -1,9 +1,9 @@
 #header-post
   position: fixed
   top: 2rem
-  right: 0
+  left: 0
   display: inline-block
-  float: right
+  float: left
   z-index: 100
 
   a
@@ -35,27 +35,27 @@
       margin-right: 0
 
   #menu-icon
-    float: right
-    margin-right: 2rem
-    margin-left: 15px
+    float: left
+    margin-left: 2rem
+    margin-right: 15px
 
     &:hover
       color: $color-accent-1
 
   #menu-icon-tablet
-    float: right
-    margin-right: 2rem
-    margin-left: 15px
+    float: left
+    margin-left: 2rem
+    margin-right: 15px
 
     &:hover
       color: $color-accent-1
 
   #top-icon-tablet
     position: fixed
-    right: 2rem
+    left: 2rem
     bottom: 2rem
-    margin-right: 2rem
-    margin-left: 15px
+    margin-left: 2rem
+    margin-right: 15px
 
     &:hover
       color: $color-accent-1
@@ -65,7 +65,7 @@
 
   #menu
     display: none
-    margin-right: 2rem
+    margin-left: 2rem
 
   #nav
     color: $color-accent-1
@@ -78,28 +78,28 @@
       line-height: 15px
 
       a
-        margin-right: 15px
+        margin-left: 15px
         color: $color-accent-1
 
       a:hover
         underline(5px, $color-accent-1)
 
       li
-        border-right: 1px dotted $color-accent-1
+        border-left: 1px dotted $color-accent-1
 
-      li:last-child
-        margin-right: 0
-        border-right: 0
+      li:first-child
+        margin-left: 0
+        border-left: 0
 
         a
-          margin-right: 0
+          margin-left: 0
 
   #actions
-    float: right
+    float: left
     margin-top: 2rem
-    margin-right: 2rem
+    margin-left: 2rem
     width: 100%
-    text-align: right
+    text-align: left
 
     ul
       display: block
@@ -111,22 +111,22 @@
   #share
     clear: both
     padding-top: 1rem
-    padding-right: 2rem
-    text-align: right
+    padding-left: 2rem
+    text-align: left
 
     li
       display: block
       margin: 0
 
   #toc
-    float: right
+    float: left
     clear: both
     overflow: auto
     margin-top: 1rem
-    padding-right: 2rem
+    padding-left: 2rem
     max-width: 20em
     max-height: calc(95vh - 7rem)
-    text-align: right
+    text-align: left
 
     a:hover
       color: $color-link
@@ -192,12 +192,12 @@
 
       ul
         display: inline-block
-        float: right
+        float: left
 
       .info
         display: inline
-        float: left
-        margin-right: 2rem
+        float: right
+        margin-left: 2rem
         font-style: italic
 
 @media print 
