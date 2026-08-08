@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="600" viewBox="0 0 780 600" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', 'Noto Sans CJK SC', sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="780" height="600" fill="#ffffff"/>
+
+  <!-- 步骤框 -->
+  <g font-size="13.5" fill="#0f172a">
+    <rect x="90" y="60" width="540" height="50" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="360" y="90" text-anchor="middle" font-weight="600">① 构造 Consumer：读已提交 offset（无则 0）</text>
+
+    <rect x="90" y="150" width="540" height="50" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+    <text x="360" y="180" text-anchor="middle" font-weight="600">② poll()：从本地 position 拉取一批（FETCH）</text>
+
+    <rect x="90" y="240" width="540" height="50" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+    <text x="360" y="270" text-anchor="middle" font-weight="600">③ 成功后 position = last.offset + 1（只推进内存）</text>
+
+    <rect x="90" y="330" width="540" height="50" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+    <text x="360" y="360" text-anchor="middle" font-weight="600">④ 业务处理消息（重复消费请保持幂等）</text>
+
+    <rect x="90" y="420" width="540" height="50" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+    <text x="360" y="450" text-anchor="middle" font-weight="600">⑤ commit()：position 原子落盘 OffsetStore</text>
+  </g>
+
+  <!-- 菱形判定 -->
+  <g>
+    <polygon points="360,505 480,545 360,585 240,545" fill="#fefce8" stroke="#ca8a04" stroke-width="1.5"/>
+    <text x="360" y="542" font-size="13" font-weight="600" fill="#854d0e" text-anchor="middle">处理完、commit 前</text>
+    <text x="360" y="559" font-size="13" font-weight="600" fill="#854d0e" text-anchor="middle">崩溃？</text>
+  </g>
+
+  <!-- 箭头 -->
+  <line x1="360" y1="110" x2="360" y2="150" stroke="#2563eb" stroke-width="1.6" marker-end="url(#arr)"/>
+  <line x1="360" y1="200" x2="360" y2="240" stroke="#2563eb" stroke-width="1.6" marker-end="url(#arr)"/>
+  <line x1="360" y1="290" x2="360" y2="330" stroke="#2563eb" stroke-width="1.6" marker-end="url(#arr)"/>
+  <line x1="360" y1="380" x2="360" y2="420" stroke="#2563eb" stroke-width="1.6" marker-end="url(#arr)"/>
+  <line x1="360" y1="470" x2="360" y2="505" stroke="#2563eb" stroke-width="1.6" marker-end="url(#arr)"/>
+
+  <!-- 否：回到 poll -->
+  <path d="M 240 545 L 55 545 L 55 175 L 90 175" fill="none" stroke="#16a34a" stroke-width="1.6" marker-end="url(#arr)"/>
+  <text x="228" y="537" font-size="12" fill="#16a34a" font-weight="600" text-anchor="end">否</text>
+  <text x="28" y="365" font-size="12" fill="#15803d" font-weight="600" transform="rotate(-90 28 365)">继续 poll()</text>
+
+  <!-- 是：at-least-once -->
+  <line x1="480" y1="545" x2="690" y2="545" stroke="#dc2626" stroke-width="1.6" marker-end="url(#arr)"/>
+  <rect x="620" y="585" width="140" height="0" fill="none"/>
+  <text x="585" y="537" font-size="12" fill="#dc2626" font-weight="600" text-anchor="end">是</text>
+  <rect x="590" y="495" width="190" height="100" rx="8" fill="#fef2f2" stroke="#f87171" stroke-width="1.5"/>
+  <text x="685" y="525" font-size="12.5" font-weight="600" fill="#991b1b" text-anchor="middle">重启后从上次 commit 点</text>
+  <text x="685" y="545" font-size="12.5" font-weight="600" fill="#991b1b" text-anchor="middle">重读，该批消息会重复</text>
+  <text x="685" y="565" font-size="12.5" font-weight="600" fill="#991b1b" text-anchor="middle">→ at-least-once</text>
+</svg>

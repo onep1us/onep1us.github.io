@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="760" viewBox="0 0 960 760" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', 'Noto Sans CJK SC', sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrD" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="760" fill="#ffffff"/>
+
+  <!-- ===== 模块大区 ===== -->
+  <rect x="40" y="36" width="420" height="230" rx="12" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+  <rect x="500" y="36" width="420" height="560" rx="12" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+  <rect x="40" y="640" width="880" height="96" rx="12" fill="#fefce8" stroke="#fde047" stroke-width="1.5"/>
+
+  <!-- 模块标题 -->
+  <text x="60" y="60" font-size="16" font-weight="700" fill="#1e40af">kafka-lite-client</text>
+  <text x="520" y="60" font-size="16" font-weight="700" fill="#14532d">kafka-lite-broker</text>
+  <text x="60" y="664" font-size="16" font-weight="700" fill="#854d0e">kafka-lite-common —— client 与 broker 共享的唯一契约</text>
+
+  <!-- ===== client 组件 ===== -->
+  <rect x="70" y="80" width="165" height="60" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="152" y="104" font-size="13.5" font-weight="700" fill="#0f172a" text-anchor="middle">KafkaLiteProducer</text>
+  <text x="152" y="124" font-size="12.5" fill="#334155" text-anchor="middle">send / createTopic</text>
+
+  <rect x="265" y="80" width="165" height="60" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="347" y="104" font-size="13.5" font-weight="700" fill="#0f172a" text-anchor="middle">KafkaLiteConsumer</text>
+  <text x="347" y="124" font-size="12.5" fill="#334155" text-anchor="middle">poll / commit / position</text>
+
+  <rect x="70" y="160" width="360" height="64" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="250" y="184" font-size="13.5" font-weight="700" fill="#0f172a" text-anchor="middle">ClientConnection</text>
+  <text x="250" y="204" font-size="12.5" fill="#334155" text-anchor="middle">同步等待 correlationId 匹配的响应帧</text>
+
+  <!-- client 内部箭头 -->
+  <line x1="152" y1="140" x2="152" y2="160" stroke="#2563eb" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="347" y1="140" x2="347" y2="160" stroke="#2563eb" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- ===== broker 组件 ===== -->
+  <rect x="530" y="80" width="180" height="70" rx="6" fill="#ffffff" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="620" y="104" font-size="13.5" font-weight="700" fill="#0f172a" text-anchor="middle">BrokerServer</text>
+  <text x="620" y="124" font-size="12" fill="#334155" text-anchor="middle">accept 循环 · main 入口</text>
+  <text x="620" y="140" font-size="12" fill="#334155" text-anchor="middle">port=0 → OS 分配端口</text>
+
+  <rect x="530" y="170" width="180" height="76" rx="6" fill="#ffffff" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="620" y="194" font-size="13.5" font-weight="700" fill="#0f172a" text-anchor="middle">ConnectionHandler</text>
+  <text x="620" y="214" font-size="12" fill="#334155" text-anchor="middle">每连接一线程</text>
+  <text x="620" y="230" font-size="12" fill="#334155" text-anchor="middle">顺序读帧 → 分发 → 回帧</text>
+
+  <rect x="530" y="266" width="360" height="58" rx="6" fill="#ffffff" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="710" y="290" font-size="13.5" font-weight="700" fill="#0f172a" text-anchor="middle">TopicStore</text>
+  <text x="710" y="310" font-size="12" fill="#334155" text-anchor="middle">resolveForAppend()：自动建 topic · -1 路由 → 分区 0</text>
+
+  <rect x="530" y="364" width="200" height="96" rx="6" fill="#ffffff" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="630" y="388" font-size="13.5" font-weight="700" fill="#0f172a" text-anchor="middle">PartitionLog</text>
+  <text x="630" y="410" font-size="12" fill="#334155" text-anchor="middle">追加日志 topics/&lt;t&gt;/&lt;p&gt;.log</text>
+  <text x="630" y="428" font-size="12" fill="#334155" text-anchor="middle">内存索引 offset → 位置</text>
+  <text x="630" y="446" font-size="12" fill="#334155" text-anchor="middle">loadIndex 启动重建</text>
+
+  <rect x="760" y="364" width="130" height="96" rx="6" fill="#ffffff" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="825" y="388" font-size="13.5" font-weight="700" fill="#0f172a" text-anchor="middle">OffsetStore</text>
+  <text x="825" y="410" font-size="12" fill="#334155" text-anchor="middle">offsets/&lt;g&gt;/&lt;t&gt;/&lt;p&gt;</text>
+  <text x="825" y="428" font-size="12" fill="#334155" text-anchor="middle">十进制 offset</text>
+  <text x="825" y="446" font-size="12" fill="#334155" text-anchor="middle">临时文件 + rename</text>
+
+  <rect x="530" y="500" width="360" height="70" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="710" y="523" font-size="13" font-weight="700" fill="#0f172a" text-anchor="middle">磁盘 dataDir</text>
+  <text x="710" y="543" font-size="12" fill="#475569" text-anchor="middle">topics/&lt;topic&gt;/&lt;partition&gt;.log（消息）</text>
+  <text x="710" y="561" font-size="12" fill="#475569" text-anchor="middle">offsets/&lt;group&gt;/&lt;topic&gt;/&lt;partition&gt;（进度）</text>
+
+  <!-- broker 内部箭头 -->
+  <line x1="620" y1="150" x2="620" y2="170" stroke="#16a34a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="620" y1="246" x2="620" y2="266" stroke="#16a34a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="610" y1="324" x2="610" y2="364" stroke="#16a34a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="840" y1="324" x2="840" y2="364" stroke="#16a34a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="620" y1="460" x2="620" y2="500" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="825" y1="460" x2="825" y2="500" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- ===== 协议通道：client ↔ broker ===== -->
+  <line x1="430" y1="192" x2="522" y2="208" stroke="#2563eb" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="398" y="170" width="164" height="22" rx="4" fill="#ffffff"/>
+  <text x="480" y="185" font-size="12.5" font-weight="600" fill="#2563eb" text-anchor="middle">TCP · 自定义二进制协议帧</text>
+
+  <!-- ===== common 组件 ===== -->
+  <rect x="60" y="680" width="200" height="48" rx="6" fill="#ffffff" stroke="#ca8a04" stroke-width="1.5"/>
+  <text x="160" y="701" font-size="13" font-weight="700" fill="#0f172a" text-anchor="middle">MessageType</text>
+  <text x="160" y="719" font-size="12" fill="#334155" text-anchor="middle">请求 1–6 · 响应 11+</text>
+
+  <rect x="290" y="680" width="150" height="48" rx="6" fill="#ffffff" stroke="#ca8a04" stroke-width="1.5"/>
+  <text x="365" y="701" font-size="13" font-weight="700" fill="#0f172a" text-anchor="middle">Bodies</text>
+  <text x="365" y="719" font-size="12" fill="#334155" text-anchor="middle">消息体 schema</text>
+
+  <rect x="470" y="680" width="210" height="48" rx="6" fill="#ffffff" stroke="#ca8a04" stroke-width="1.5"/>
+  <text x="575" y="701" font-size="13" font-weight="700" fill="#0f172a" text-anchor="middle">ProtocolCodec</text>
+  <text x="575" y="719" font-size="12" fill="#334155" text-anchor="middle">encodeBody / decodeBody</text>
+
+  <rect x="710" y="680" width="180" height="48" rx="6" fill="#ffffff" stroke="#ca8a04" stroke-width="1.5"/>
+  <text x="800" y="701" font-size="13" font-weight="700" fill="#0f172a" text-anchor="middle">Message / TopicInfo</text>
+  <text x="800" y="719" font-size="12" fill="#334155" text-anchor="middle">ErrorCode</text>
+
+  <!-- 依赖箭头（虚线） -->
+  <line x1="160" y1="640" x2="160" y2="266" stroke="#ca8a04" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arrD)"/>
+  <text x="170" y="460" font-size="12" fill="#92400e">依赖</text>
+  <line x1="700" y1="640" x2="700" y2="596" stroke="#ca8a04" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arrD)"/>
+  <text x="708" y="622" font-size="12" fill="#92400e">依赖</text>
+</svg>

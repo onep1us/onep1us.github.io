@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="480" viewBox="0 0 960 480" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', 'Noto Sans CJK SC', sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#16a34a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="480" fill="#ffffff"/>
+
+  <!-- ===== 左：目录树 ===== -->
+  <text x="50" y="44" font-size="17" font-weight="700" fill="#0f172a">dataDir 目录布局</text>
+  <g font-family="Consolas, 'Courier New', monospace" font-size="13.5" fill="#334155">
+    <text x="66" y="84">dataDir/</text>
+    <text x="66" y="112">├── topics/</text>
+    <text x="94" y="140">└── demo-topic/</text>
+    <text x="122" y="168">└── 0.log      ← 分区日志（消息数据）</text>
+    <text x="66" y="196">└── offsets/</text>
+    <text x="94" y="224">└── demo-group/</text>
+    <text x="122" y="252">└── demo-topic/</text>
+    <text x="150" y="280">└── 0          ← 消费进度（十进制 offset，如 "5"）</text>
+  </g>
+  <rect x="50" y="320" width="400" height="90" rx="8" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+  <text x="70" y="348" font-size="13.5" font-weight="600" fill="#14532d">分工</text>
+  <text x="70" y="372" font-size="12.5" fill="#334155">0.log 存「数据」，offset 文件只存「读到哪」。</text>
+  <text x="70" y="392" font-size="12.5" fill="#334155">消息永远从 log 读，offset 只是读的起点参数。</text>
+
+  <!-- ===== 右：记录格式 ===== -->
+  <text x="470" y="44" font-size="17" font-weight="700" fill="#0f172a">0.log 记录格式（每条消息）</text>
+
+  <!-- 字节条 -->
+  <g>
+    <rect x="470" y="80" width="88" height="46" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <rect x="558" y="80" width="44" height="46" fill="#f1f5f9" stroke="#2563eb" stroke-width="1.2"/>
+    <rect x="602" y="80" width="70" height="46" fill="#fefce8" stroke="#ca8a04" stroke-width="1.2" stroke-dasharray="5 3"/>
+    <rect x="672" y="80" width="44" height="46" fill="#f1f5f9" stroke="#2563eb" stroke-width="1.2"/>
+    <rect x="716" y="80" width="130" height="46" fill="#fefce8" stroke="#ca8a04" stroke-width="1.2" stroke-dasharray="5 3"/>
+  </g>
+  <g font-size="13" fill="#0f172a" text-anchor="middle" font-weight="600">
+    <text x="514" y="100">offset</text>
+    <text x="514" y="117" font-size="11.5" fill="#475569">8B</text>
+    <text x="580" y="100">keyLen</text>
+    <text x="580" y="117" font-size="11.5" fill="#475569">4B</text>
+    <text x="637" y="100">key</text>
+    <text x="637" y="117" font-size="11.5" fill="#475569">keyLen 字节?</text>
+    <text x="694" y="100">valueLen</text>
+    <text x="694" y="117" font-size="11.5" fill="#475569">4B</text>
+    <text x="781" y="100">value</text>
+    <text x="781" y="117" font-size="11.5" fill="#475569">valueLen 字节?</text>
+  </g>
+
+  <!-- 注释 -->
+  <g font-size="12.5" fill="#334155">
+    <line x1="514" y1="126" x2="514" y2="146" stroke="#94a3b8" stroke-width="1.2"/>
+    <text x="470" y="164">offset：分区内单调递增序号，从 0 起；返回给客户端做 ack。</text>
+    <line x1="620" y1="126" x2="620" y2="190" stroke="#94a3b8" stroke-width="1.2"/>
+    <text x="470" y="208">keyLen == -1 表示无 key。</text>
+    <line x1="694" y1="126" x2="694" y2="234" stroke="#94a3b8" stroke-width="1.2"/>
+    <text x="470" y="252">key 字节在 keyLen 与 valueLen 之间，读到 valueLen 前必须先跳过 key。</text>
+  </g>
+
+  <!-- 内存索引 -->
+  <text x="470" y="300" font-size="17" font-weight="700" fill="#0f172a">内存索引（启动重建，不读数据进内存）</text>
+
+  <text x="470" y="336" font-size="13" font-weight="600" fill="#0f172a">indexOffsets:</text>
+  <g font-size="12.5" fill="#0f172a" text-anchor="middle">
+    <rect x="600" y="312" width="44" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.2"/>
+    <text x="622" y="335">0</text>
+    <rect x="650" y="312" width="44" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.2"/>
+    <text x="672" y="335">1</text>
+    <rect x="700" y="312" width="44" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.2"/>
+    <text x="722" y="335">2</text>
+    <rect x="750" y="312" width="44" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.2"/>
+    <text x="772" y="335">3</text>
+    <text x="808" y="335" fill="#94a3b8">…</text>
+  </g>
+
+  <text x="470" y="396" font-size="13" font-weight="600" fill="#0f172a">indexPositions:</text>
+  <g font-size="12.5" fill="#0f172a" text-anchor="middle">
+    <rect x="600" y="372" width="44" height="36" rx="4" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.2"/>
+    <text x="622" y="395">0</text>
+    <rect x="650" y="372" width="44" height="36" rx="4" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.2"/>
+    <text x="672" y="395">30</text>
+    <rect x="700" y="372" width="44" height="36" rx="4" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.2"/>
+    <text x="722" y="395">61</text>
+    <rect x="750" y="372" width="44" height="36" rx="4" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.2"/>
+    <text x="772" y="395">92</text>
+    <text x="808" y="395" fill="#94a3b8">…</text>
+  </g>
+
+  <line x1="622" y1="348" x2="622" y2="372" stroke="#94a3b8" stroke-width="1.2"/>
+  <line x1="672" y1="348" x2="672" y2="372" stroke="#94a3b8" stroke-width="1.2"/>
+  <line x1="722" y1="348" x2="722" y2="372" stroke="#94a3b8" stroke-width="1.2"/>
+  <line x1="772" y1="348" x2="772" y2="372" stroke="#94a3b8" stroke-width="1.2"/>
+
+  <text x="470" y="432" font-size="12.5" fill="#334155">下标 i 对齐：第 i 条记录在文件第 indexPositions[i] 字节，read(offset) 二分定位。</text>
+  <text x="470" y="454" font-size="12.5" fill="#334155">indexOffsets 存的是「真实 offset 值」，不是数组下标；内存只装索引不装数据。</text>
+</svg>

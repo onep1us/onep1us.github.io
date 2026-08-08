@@ -52,20 +52,17 @@ kafka-lite/
 
 有意思的是 `kafka-lite-client` 依赖 broker 只是为了让 `DemoMain` 能内嵌启动 Broker；业务代码其实**只依赖 common**。这恰好复刻了真实世界的边界：客户端与 Broker 通过协议沟通，不该互相咬死实现。
 
+![kafka-lite 整体架构：client / broker / common 三模块与一次交互的数据流](/images/kafka-lite-architecture.svg)
+
+> 图里实线是请求数据流，虚线箭头表示 client / broker 对 common 的依赖。Broker 内部从上到下就是一条"接入 → 分发 → 存储"的链路。
+
 ## 一次 `send()` 的完整旅程
 
 这是理解整个项目的主线，所有代码都围着它转：
 
-```
-Producer.send("demo-topic", "hi")
-  ① 编码成帧：[magic "KL":2][version:1][type:1][correlationId:4][bodyLen:4][body]
-  ② TCP 发送
-  ③ BrokerServer.accept → ConnectionHandler（每连接一线程）
-  ④ 按 MessageType 分发请求
-  ⑤ TopicStore.resolveForAppend（找/建分区，partition == -1 自动路由到 0）
-  ⑥ PartitionLog.append（追加到 topics/demo-topic/0.log，返回 offset）
-  ⑦ 响应帧原样回传，ClientConnection 校验 correlationId 匹配
-```
+![一次 send() 的完整时序：Producer → ClientConnection → ConnectionHandler → TopicStore → PartitionLog](/images/kafka-lite-send-sequence.svg)
+
+简版路径：`Producer.send` → 编码成帧 → TCP → `BrokerServer.accept` → `ConnectionHandler`（按 `MessageType` 分发）→ `TopicStore.resolveForAppend`（partition == -1 自动路由到 0）→ `PartitionLog.append`（返回 offset）→ 响应帧原样回传。
 
 关键点：`correlationId` 由客户端每请求自增，broker 原样回传，客户端同步等待"编号匹配"的响应帧。因为连接是同步串行的，所以**没有并发乱序问题**——这是刻意的简化。
 
@@ -78,6 +75,8 @@ Producer.send("demo-topic", "hi")
 ```
 [offset:8][keyLen:4][key bytes?][valueLen:4][value]
 ```
+
+![kafka-lite 存储设计：dataDir 目录布局、0.log 记录格式、内存索引的对应关系](/images/kafka-lite-storage.svg)
 
 `keyLen == -1` 表示无 key。写入永远是"追加"：`pos = raf.length(); raf.seek(pos);`——只在文件末尾写，绝不修改已有字节。三个好处：offset 单调递增、顺序写比随机写快一个数量级、不可变 → 可随时重放历史。
 
@@ -99,6 +98,8 @@ Producer.send("demo-topic", "hi")
 [magic "KL":2][version:1][type:1][correlationId:4][bodyLen:4][body]
 ```
 
+![kafka-lite 协议帧格式：12 字节定长头 + body，大端序](/images/kafka-lite-frame.svg)
+
 大端序，12 字节定长头。`MessageType` 用一段编码空间区分请求和响应：
 
 - **请求（1–6）**：`CREATE_TOPIC` / `LIST_TOPICS` / `PRODUCE` / `FETCH` / `COMMIT_OFFSET` / `FETCH_OFFSET`
@@ -113,6 +114,8 @@ Producer.send("demo-topic", "hi")
 offset 按 `(groupId, topic, partition)` 持久化。刻意**不做再平衡**——同组不同实例互不感知，各自从自己提交的进度消费。consumer 构造时读已提交 offset（无则 0），`poll` 推进本地 `position`，`commit` 落盘。
 
 投递语义是标准的 **at-least-once**：
+
+![kafka-lite 消费流程：poll 推进 position、commit 落盘，以及 at-least-once 的重复窗口](/images/kafka-lite-consume-flow.svg)
 
 - `poll()` 从本地 position 拉取，成功后 `position = last.offset + 1`（只在内存推进）
 - `commit()` 把 position 原子落盘
