@@ -142,6 +142,30 @@ if ('serviceWorker' in navigator) {
 </script>
 <!-- busuanzi visitor stats (loads on all pages for accurate counting) -->
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- visitor location: show current visitor's region (ipinfo.io, homepage only) -->
+<script type="text/javascript">
+$(function() {
+  var $loc = $("#visitor-location");
+  if (!$loc.length) { return; }
+
+  var CN_CITIES = {"Beijing":"北京","Shanghai":"上海","Guangzhou":"广州","Shenzhen":"深圳","Chengdu":"成都","Hangzhou":"杭州","Wuhan":"武汉","Nanjing":"南京","Xi'an":"西安","Chongqing":"重庆","Tianjin":"天津","Suzhou":"苏州","Qingdao":"青岛","Dalian":"大连","Xiamen":"厦门","Changsha":"长沙","Zhengzhou":"郑州","Hefei":"合肥","Jinan":"济南","Fuzhou":"福州","Kunming":"昆明","Harbin":"哈尔滨","Shenyang":"沈阳","Taiyuan":"太原","Shijiazhuang":"石家庄","Nanning":"南宁","Guiyang":"贵阳","Lanzhou":"兰州","Urumqi":"乌鲁木齐","Hohhot":"呼和浩特","Yinchuan":"银川","Xining":"西宁","Lhasa":"拉萨","Haikou":"海口"};
+
+  fetch("https://ipinfo.io/json")
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      var country = data.country || "";
+      try {
+        country = new Intl.DisplayNames(["zh-CN"], { type: "region" }).of(country);
+      } catch (e) {}
+      var city = CN_CITIES[data.city] || data.city || "";
+      $loc.text("欢迎来自 " + [country, city].filter(Boolean).join(" · ") + " 的访客");
+      $loc.show();
+    })
+    .catch(function() {
+      $loc.hide();
+    });
+});
+</script>
 <!-- back to top floating button -->
 <script type="text/javascript">
 $(function() {
