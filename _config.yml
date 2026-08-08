@@ -112,6 +112,8 @@ theme_config:
     home: /
     about: /about/
     articles: /archives/
+    category: /categories/
+    tag: /tags/
   social_links:
     -
       icon: github
