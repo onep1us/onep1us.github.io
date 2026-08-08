@@ -20,6 +20,14 @@ tags: [标签]
 
 推送代码到 `main` 分支后，GitHub Actions 会自动构建并发布。
 
+### 插图
+
+图片放到 `source/images/` 目录，文章里用 `/images/文件名` 引用：
+
+```markdown
+![图片说明](/images/example.png)
+```
+
 ## 本地预览
 
 ```bash
